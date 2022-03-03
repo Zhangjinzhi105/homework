@@ -329,8 +329,7 @@ def model(X, Y, learning_rate, layers_dims, iteration_nums, optimizer, beta1=0.9
             elif optimizer == "momentum":
                 parameters = update_parameters_momentum(parameters, grads, v, beta1, learning_rate)
             elif optimizer == "adam":
-                parameters = update_parameters_adam(parameters, grads, v, s,
-                                                    beta1, beta2, learning_rate, epsilon, t)
+                parameters = update_parameters_adam(parameters, grads, v, s, beta1, beta2, learning_rate, epsilon, t)
             else:
                 print("optimizer参数传入错误，程序退出")
                 exit(1) # 程序退出：程序发生了错误

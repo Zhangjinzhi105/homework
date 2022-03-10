@@ -5,6 +5,16 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import h5py
 
+"""
+如果你有一个Tensro t ，在使用t.eval()时，等价于：tf.get_default_session().run(t)
+
+run(）可以同时获取多个Tensor中的值；eval()只能一次获取一个Tensor值。
+
+eval()：只能用于tf.Tensor类对象，也就是有输出的Operation。对于没有输出的Operation，可以用run（）.
+
+每次使用eval()和run()时，都会执行整个计算图。
+"""
+
 
 # 加载数据
 def loaddata():
@@ -116,7 +126,7 @@ def random_mini_batches(X, Y, minibatch_size, seed):
         mini_batch = [minibatch_X, minibatch_Y]
         mini_batches.append(mini_batch)
     # 若没有整除
-    if m // minibatch_size != 0:
+    if m % minibatch_size != 0:
         minibatch_X = X_shuffle[:, minibatch_num * minibatch_size:]
         minibatch_Y = Y_shuffle[:, minibatch_num * minibatch_size:]
         mini_batch = [minibatch_X, minibatch_Y]
@@ -127,9 +137,7 @@ def random_mini_batches(X, Y, minibatch_size, seed):
 
 # 启动模型
 def model(train_X, train_Y, test_X, test_Y, learning_rate, epoch_num, minibatch_size, is_plot=True):
-    # 清除并重置全局默认计算图
-    # tf.reset_default_graph()
-    # 占位符
+    # 定义占位符
     (n_x, m) = train_X.shape # int类型
     n_y = train_Y.shape[0]
     X, Y = create_placeholder(n_x, n_y)
@@ -231,12 +239,3 @@ def test():
 
 
 test()
-
-
-
-
-
-
-
-
-
